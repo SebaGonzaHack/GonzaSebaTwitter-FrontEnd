@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import useAxios from "../hooks/useAxios";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   return (
     <div className="container">
       <div className="login-box mt-5 p-3">
@@ -14,6 +16,7 @@ const Login = () => {
           <div className="form-group">
             <label for="username">Nombre de Usuario</label>
             <input
+              onChange={(e) => setUsername(e.target.value)}
               type="text"
               className="form-control"
               id="username"
@@ -24,6 +27,7 @@ const Login = () => {
           <div className="form-group">
             <label for="password">Contraseña</label>
             <input
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               className="form-control"
               id="password"
@@ -31,11 +35,7 @@ const Login = () => {
               placeholder="Ingresa tu Nombre de Password..."
             />
           </div>
-          <button
-            onClick={() => setUsername()}
-            type="submit"
-            className="btn btn-primary"
-          >
+          <button type="button" className="btn btn-primary">
             Iniciar Sesión
           </button>
         </form>
