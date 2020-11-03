@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
+.tweet-container {
+  background-color: rgb(221, 221, 221);
+  box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.411);
+  border-radius: 1rem;
+  margin-top: 1rem;
+  padding: 2rem;
+  padding-bottom: 1rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.btn {
+  border-radius: 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.tweetAvatar {
+  height: 4rem;
+  width: 4rem;
+  object-fit: cover;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.profileAvatar {
+  height: 8rem;
+  width: 8rem;
+  object-fit: cover;
 }
 
-.App-link {
-  color: #61dafb;
+body {
+  background: rgb(243, 220, 251);
+  background: linear-gradient(
+    45deg,
+    rgba(243, 220, 251, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 {
+  padding: 1rem;
+  font-weight: bolder;
+}
+
+textarea {
+  border-radius: 2rem;
+}
+
+.jumbotron {
+  box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.411);
+  border-radius: 1rem;
+  margin-top: 1rem;
+  padding: 2rem;
+  padding-bottom: 1rem;
 }
