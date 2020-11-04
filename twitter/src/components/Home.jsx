@@ -1,8 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Nav from "./partials/Nav";
 
 function Home() {
-  return <p>Te logueaste!!</p>;
+  return (
+    <>
+      <Nav />
+    </>
+  );
 }
 
 export default Home;
