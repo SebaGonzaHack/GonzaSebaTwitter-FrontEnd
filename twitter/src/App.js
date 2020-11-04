@@ -29,8 +29,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/profile" component={Profile} />
-
-            <Redirect path="/login" component={Home} />
+            <Redirect from="/login" to="/" />
           </Switch>
         </div>
       </Router>
