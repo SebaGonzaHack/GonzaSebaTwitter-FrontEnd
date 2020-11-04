@@ -1,4 +1,6 @@
-import { combineReducer } from "redux";
+import { combineReducers } from "redux";
 import twitterReducer from "./twitterReducer";
 
-const rootReducer = combineReducer({ twitterReducer });
+const rootReducer = combineReducers({ twitterReducer });
+
+export default rootReducer;

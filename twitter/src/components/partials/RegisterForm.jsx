@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 const RegisterForm = () => {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [userphoto, setUserphoto] = useState("");
+  const [bio, setBio] = useState("");
+
+  function handleRegister(newUser) {
+    axios
+      .post("http://localhost:8000/login", {
+        firstname: newUser.firstname,
+        lastname: newUser.lastname,
+        email: newUser.email,
+        username: newUser.username,
+        password: newUser.password,
+        userphoto: newUser.userphoto,
+        bio: newUser.bio,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <div class="container mt-4">
       <h1>Bienvenido a Mini-Twitter!</h1>
@@ -89,7 +117,21 @@ const RegisterForm = () => {
             ></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary">
+          <button
+            type="button"
+            class="btn btn-primary"
+            onClick={() => {
+              handleRegister({
+                firstname,
+                lastname,
+                email,
+                username,
+                password,
+                userphoto,
+                bio,
+              });
+            }}
+          >
             Registrarme
           </button>
         </form>
