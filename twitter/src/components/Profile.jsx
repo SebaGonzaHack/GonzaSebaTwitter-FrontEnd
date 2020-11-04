@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import actions from "../redux/actions/actions";
 import { Link } from "react-router-dom";
 import Nav from "./partials/Nav";
+import axios from "axios";
 
 function Profile() {
+  const state = useSelector((state) => state);
+  const [user, setUser] = useState({});
+
+  axios
+    .post("http://localhost:8000/profile", {
+      username: state.username,
+      token: state.token,
+    })
+    .then((res) => {
+      setUser(res.data);
+    });
+
   return (
     <>
       <Nav />
@@ -13,19 +26,19 @@ function Profile() {
           <div class="col-md-2">
             <img
               class="rounded-circle profileAvatar"
-              src="{loggedUser.userPhoto}"
-              alt="{loggedUser.userName}"
+              src={user.userPhoto}
+              alt={user.userName}
             />
           </div>
 
           <div class="col-md-10">
-            <p>loggedUser.bio</p>
+            <p>user.bio</p>
           </div>
 
           <hr />
 
-          <span>Seguidores: loggedUser.userFollowers.length | </span>
-          <span>Siguiendo: loggedUser.userFollowing.length</span>
+          <span>Seguidores: {user.userFollowers.length} | </span>
+          <span>Siguiendo: {user.userFollowing.length}</span>
         </div>
         <div className="row">
           <div className="col-md-6">
