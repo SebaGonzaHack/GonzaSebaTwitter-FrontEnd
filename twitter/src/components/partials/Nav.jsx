@@ -40,7 +40,7 @@ const Nav = () => {
         </ul>
       </div>
 
-      <div class="my-2 my-lg-0 text-light">Hola loggedUser.firstName </div>
+      <div class="my-2 my-lg-0 text-light">Hola user.firstName </div>
       <a class="btn btn-warning ml-3" href="/logout">
         Logout
       </a>

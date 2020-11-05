@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import actions from "../redux/actions/actions";
 import { Link } from "react-router-dom";
@@ -9,14 +9,20 @@ function Profile() {
   const state = useSelector((state) => state);
   const [user, setUser] = useState({});
 
-  axios
-    .post("http://localhost:8000/profile", {
-      username: state.username,
-      token: state.token,
-    })
-    .then((res) => {
-      setUser(res.data);
-    });
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/profile", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTFiMDU3MmQ5M2JjMTU2MGJkOGJjNSIsInVzZXJOYW1lIjoiZ29uemEiLCJpYXQiOjE2MDQ1MjQ4NzZ9.1sLA6SixG5qM-mZwkUufYzHBfXgnHuFgv52Qw_p8rN8",
+        },
+        params: { username: "gonza" },
+      })
+      .then((res) => {
+        setUser(res.data);
+      });
+  }, []);
 
   return (
     <>
@@ -26,19 +32,19 @@ function Profile() {
           <div class="col-md-2">
             <img
               class="rounded-circle profileAvatar"
-              src={user.userPhoto}
-              alt={user.userName}
+              src="user.userPhoto"
+              alt="user.userName"
             />
           </div>
 
           <div class="col-md-10">
-            <p>user.bio</p>
+            <p>{user.bio}</p>
           </div>
 
           <hr />
 
           <span>Seguidores: {user.userFollowers.length} | </span>
-          <span>Siguiendo: {user.userFollowing.length}</span>
+          <span>Siguiendo: {user.userFollowing.length} </span>
         </div>
         <div className="row">
           <div className="col-md-6">
