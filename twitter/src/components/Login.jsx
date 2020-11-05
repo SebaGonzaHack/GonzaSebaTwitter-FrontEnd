@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import createToken from "../redux/actions/actions";
+import { createToken } from "../redux/actions/actions";
 import { useHistory, Link } from "react-router-dom";
 
 const Login = () => {

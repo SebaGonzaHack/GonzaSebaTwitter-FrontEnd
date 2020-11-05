@@ -7,6 +7,11 @@ export default function twitterReducer(state = { logged: false }, action) {
         username: action.payload.username,
       };
 
+    case "CREATE_TWEET":
+      return {
+        //
+      };
+
     default:
       return state;
   }

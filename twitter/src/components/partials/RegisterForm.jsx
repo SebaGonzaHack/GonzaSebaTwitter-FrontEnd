@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import createToken from "../../redux/actions/actions";
+import { createToken } from "../../redux/actions/actions";
 
 const RegisterForm = () => {
   const [firstname, setFirstname] = useState("");

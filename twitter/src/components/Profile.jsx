@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import actions from "../redux/actions/actions";
 import { Link, useParams } from "react-router-dom";
 import Nav from "./partials/Nav";
 import axios from "axios";
+import { createTweet } from "../redux/actions/actions";
 
 function Profile() {
   const state = useSelector((state) => state);
   const { username } = useParams();
   const [user, setUser] = useState();
+  const [text, setText] = useState();
+  const dispatch = useDispatch();
+
   console.log(username);
 
   useEffect(() => {
@@ -103,10 +106,19 @@ function Profile() {
                   rows="10"
                   placeholder="¿Qué está pasando?"
                   type="text"
+                  onChange={(e) => {
+                    setText(e.target.value);
+                  }}
                 ></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                onClick={() => {
+                  dispatch(createTweet(text, state.username));
+                }}
+              >
                 Twitear
               </button>
             </form>
