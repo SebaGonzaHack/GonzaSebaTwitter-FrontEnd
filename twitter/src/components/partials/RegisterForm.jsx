@@ -12,7 +12,7 @@ const RegisterForm = () => {
 
   function handleRegister(newUser) {
     axios
-      .post("http://localhost:8000/login", {
+      .post("http://localhost:8000/register", {
         firstname: newUser.firstname,
         lastname: newUser.lastname,
         email: newUser.email,
@@ -44,6 +44,7 @@ const RegisterForm = () => {
               name="firstname"
               class="form-control"
               placeholder="Introducir Nombre..."
+              onChange={(e) => setFirstname(e.target.value)}
             />
           </div>
 
@@ -55,6 +56,7 @@ const RegisterForm = () => {
               name="lastname"
               class="form-control"
               placeholder="Introducir Apellido..."
+              onChange={(e) => setLastname(e.target.value)}
             />
           </div>
 
@@ -66,6 +68,7 @@ const RegisterForm = () => {
               name="email"
               id="email"
               placeholder="Ejemplo: tucasilla@correo.com"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -76,6 +79,7 @@ const RegisterForm = () => {
               type="password"
               class="form-control"
               id="password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
@@ -87,6 +91,7 @@ const RegisterForm = () => {
               name="username"
               class="form-control"
               placeholder="Introducir tu nombre de usuario..."
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
@@ -98,6 +103,7 @@ const RegisterForm = () => {
               name="userphoto"
               class="form-control"
               placeholder="Inserte Apellido..."
+              onChange={(e) => setUserphoto(e.target.value)}
             />
           </div>
 
@@ -114,6 +120,7 @@ const RegisterForm = () => {
               placeholder="Sobre Mí..."
               cols="30"
               rows="10"
+              onChange={(e) => setBio(e.target.value)}
             ></textarea>
           </div>
 

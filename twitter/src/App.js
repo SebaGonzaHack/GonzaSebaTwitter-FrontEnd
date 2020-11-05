@@ -2,6 +2,7 @@ import "./App.css";
 import Profile from "./components/Profile";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import {
   Switch,
   Route,
@@ -10,31 +11,18 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const isAuthenticated = true;
-
-  if (!isAuthenticated) {
-    return (
-      <Router>
-        <div className="App">
-          <Switch>
-            <Route path="/" component={Login} />
-          </Switch>
-        </div>
-      </Router>
-    );
-  } else {
-    return (
-      <Router>
-        <div className="App">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/profile" component={Profile} />
-            <Redirect from="/login" to="/" />
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
+  return (
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/profile/:username" component={Profile} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+        </Switch>
+      </div>
+    </Router>
+  );
 }
 
 export default App;

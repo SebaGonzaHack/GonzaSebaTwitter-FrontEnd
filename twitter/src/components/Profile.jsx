@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import actions from "../redux/actions/actions";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Nav from "./partials/Nav";
 import axios from "axios";
 
 function Profile() {
   const state = useSelector((state) => state);
+  const { username } = useParams();
   const [user, setUser] = useState();
+  console.log(username);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/profile/${state.twitterReducer.username}`, {
+      .get(`http://localhost:8000/profile/${username}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${state.twitterReducer.token}`,

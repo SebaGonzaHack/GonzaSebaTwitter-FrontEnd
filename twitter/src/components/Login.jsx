@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import createToken from "../redux/actions/actions";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -61,6 +61,9 @@ const Login = () => {
           >
             Iniciar Sesión
           </button>
+          <Link to="/register" className="btn btn-primary">
+            Registrarse
+          </Link>
         </form>
       </div>
     </div>
