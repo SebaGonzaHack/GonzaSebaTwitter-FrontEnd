@@ -28,11 +28,7 @@ function Profile() {
       <div className="container">
         <div class="row">
           <div class="col-md-2">
-            <img
-              class="rounded-circle profileAvatar"
-              src="user.userPhoto"
-              alt="user.userName"
-            />
+            <img class="rounded-circle profileAvatar" src="user.userPhoto" />
           </div>
 
           <div class="col-md-10">
@@ -46,45 +42,51 @@ function Profile() {
         </div>
         <div className="row">
           <div className="col-md-6">
-            <div class="tweet-container">
-              <div class="row">
-                <div class="col-md-2">
-                  <Link
-                    to={`http://localhost:3000/profile/$twit.user.userName`}
-                  >
-                    <img
-                      class="rounded-circle tweetAvatar"
-                      src="{twit.user.userPhoto}"
-                      alt="{twit.user.userName}"
-                    />
-                  </Link>
-                </div>
+            {user &&
+              user.userTweets.map((twit) => {
+                return (
+                  <div class="tweet-container">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <Link
+                          to={`http://localhost:3000/profile/$twit.user.userName`}
+                        >
+                          <img
+                            class="rounded-circle tweetAvatar"
+                            src="{twit.user.userPhoto}"
+                          />
+                        </Link>
+                      </div>
 
-                <div class="col-md-10">
-                  <strong>twit.user.firstName twit.user.lastName</strong>
-                  <Link
-                    to={`http://localhost:3000/profile/$twit.user.userName`}
-                  >
-                    <span>@twit.user.userName </span>
-                  </Link>
+                      <div class="col-md-10">
+                        <strong>
+                          {user.firstName} {user.lastName}
+                        </strong>
+                        <Link
+                          to={`http://localhost:3000/profile/$twit.user.userName`}
+                        >
+                          <span> @{user.userName} </span>
+                        </Link>
 
-                  <p>twit.text</p>
-                </div>
-              </div>
+                        <p>{twit.text}</p>
+                      </div>
+                    </div>
 
-              <hr />
-              <span>twit.createdAt | </span>
+                    <hr />
+                    <span>{twit.createdAt} | </span>
 
-              <span>
-                <Link
-                  to="http://localhost:3000/tweet/like/${twit._id}"
-                  method="POST"
-                >
-                  <i class="far fa-heart"></i>
-                </Link>
-                twit.likes.length
-              </span>
-            </div>
+                    <span>
+                      <Link
+                        to="http://localhost:3000/tweet/like/${twit._id}"
+                        method="POST"
+                      >
+                        <i class="far fa-heart mr-1"></i>
+                      </Link>
+                      {twit.likes.length}
+                    </span>
+                  </div>
+                );
+              })}
           </div>
 
           <div className="col-md-6">

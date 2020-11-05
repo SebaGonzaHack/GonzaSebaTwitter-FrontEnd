@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Nav = () => {
+  const state = useSelector((state) => state);
+
   return (
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand text-primary" href="/">
@@ -40,7 +43,9 @@ const Nav = () => {
         </ul>
       </div>
 
-      <div class="my-2 my-lg-0 text-light">Hola user.firstName </div>
+      <div class="my-2 my-lg-0 text-light">
+        Hola @{state.twitterReducer.username}
+      </div>
       <a class="btn btn-warning ml-3" href="/logout">
         Logout
       </a>
