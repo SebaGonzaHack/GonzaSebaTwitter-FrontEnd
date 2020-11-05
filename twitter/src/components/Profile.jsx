@@ -7,17 +7,15 @@ import axios from "axios";
 
 function Profile() {
   const state = useSelector((state) => state);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/profile", {
+      .get(`http://localhost:8000/profile/${state.twitterReducer.username}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTFiMDU3MmQ5M2JjMTU2MGJkOGJjNSIsInVzZXJOYW1lIjoiZ29uemEiLCJpYXQiOjE2MDQ1MjQ4NzZ9.1sLA6SixG5qM-mZwkUufYzHBfXgnHuFgv52Qw_p8rN8",
+          Authorization: `Bearer ${state.twitterReducer.token}`,
         },
-        params: { username: "gonza" },
       })
       .then((res) => {
         setUser(res.data);
@@ -38,13 +36,13 @@ function Profile() {
           </div>
 
           <div class="col-md-10">
-            <p>{user.bio}</p>
+            <p>{user && user.bio}</p>
           </div>
 
           <hr />
 
-          <span>Seguidores: {user.userFollowers.length} | </span>
-          <span>Siguiendo: {user.userFollowing.length} </span>
+          <span>Seguidores: {user && user.userFollowers.length} | </span>
+          <span>Siguiendo: {user && user.userFollowing.length}</span>
         </div>
         <div className="row">
           <div className="col-md-6">
