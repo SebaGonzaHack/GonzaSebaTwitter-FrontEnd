@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import createToken from "../../redux/actions/actions";
 
 const RegisterForm = () => {
   const [firstname, setFirstname] = useState("");
@@ -9,6 +12,22 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [userphoto, setUserphoto] = useState("");
   const [bio, setBio] = useState("");
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  function handleLogin(username, password) {
+    axios
+      .post("http://localhost:8000/login", {
+        username: username,
+        password: password,
+      })
+      .then((response) => {
+        dispatch(createToken(response.data, username));
+        history.push("/");
+      })
+      .catch((error) => {});
+  }
 
   function handleRegister(newUser) {
     axios
@@ -22,7 +41,7 @@ const RegisterForm = () => {
         bio: newUser.bio,
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -124,7 +143,8 @@ const RegisterForm = () => {
             ></textarea>
           </div>
 
-          <button
+          <a
+            href="/login"
             type="button"
             class="btn btn-primary"
             onClick={() => {
@@ -140,7 +160,7 @@ const RegisterForm = () => {
             }}
           >
             Registrarme
-          </button>
+          </a>
         </form>
       </div>
     </div>

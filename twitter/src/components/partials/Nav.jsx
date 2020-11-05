@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import persistor from "../../index";
 
 const Nav = () => {
   const state = useSelector((state) => state);
@@ -46,7 +47,13 @@ const Nav = () => {
       <div class="my-2 my-lg-0 text-light">
         Hola @{state.twitterReducer.username}
       </div>
-      <a class="btn btn-warning ml-3" href="/logout">
+      <a
+        href="/login"
+        class="btn btn-warning ml-3"
+        onClick={() => {
+          persistor.purge();
+        }}
+      >
         Logout
       </a>
 

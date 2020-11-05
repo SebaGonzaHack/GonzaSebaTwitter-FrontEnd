@@ -9,16 +9,22 @@ import {
   BrowserRouter as Router,
   Redirect,
 } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/profile/:username" component={Profile} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+          <PrivateRoute exact path="/" component={Home} />
+          <PrivateRoute path="/profile/:username" component={Profile} />
+          <PublicRoute restricted={true} path="/login" component={Login} />
+          <PublicRoute
+            restricted={true}
+            path="/register"
+            component={Register}
+          />
         </Switch>
       </div>
     </Router>
