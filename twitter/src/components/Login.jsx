@@ -17,7 +17,9 @@ const Login = () => {
         password: password,
       })
       .then((response) => {
-        dispatch(createToken(response.data, username));
+        dispatch(
+          createToken(response.data.token, username, response.data.user)
+        );
         history.push("/");
       })
       .catch((error) => {});

@@ -1,7 +1,7 @@
-const createToken = (token, username) => {
+const createToken = (token, username, user) => {
   return {
     type: "CREATE_TOKEN",
-    payload: { token, username },
+    payload: { token, username, user },
   };
 };
 

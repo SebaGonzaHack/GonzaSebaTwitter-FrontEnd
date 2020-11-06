@@ -8,7 +8,7 @@ import { createTweet } from "../redux/actions/actions";
 function Profile() {
   const state = useSelector((state) => state);
   const { username } = useParams();
-  const [user, setUser] = useState();
+  const [userVisited, setUserVisited] = useState();
   const [text, setText] = useState();
   const history = useHistory();
 
@@ -73,7 +73,7 @@ function Profile() {
         },
       })
       .then((res) => {
-        setUser(res.data);
+        setUserVisited(res.data);
       });
   }, []);
 
@@ -87,29 +87,45 @@ function Profile() {
           </div>
 
           <div class="col-md-10">
-            <p>{user && user.bio}</p>
+            <p>{userVisited && userVisited.bio}</p>
+            {userVisited && console.log(userVisited)}
           </div>
-
           <hr />
-          <button className="btn btn-primary" onClick={handleFollow}>
-            Seguir
-          </button>
-          <button className="btn btn-danger" onClick={handleUnfollow}>
-            Dejar de seguir
-          </button>
-          <span>Seguidores: {user && user.userFollowers.length} | </span>
-          <span>Siguiendo: {user && user.userFollowing.length}</span>
+          {userVisited && userVisited.userFollowers.length === 0 && (
+            <button className="btn btn-primary" onClick={handleFollow}>
+              Seguir
+            </button>
+          )}
+          {userVisited &&
+            userVisited.userFollowers.map((user) => {
+              return user.userName === state.twitterReducer.username ? (
+                <button className="btn btn-danger" onClick={handleUnfollow}>
+                  Dejar de seguir
+                </button>
+              ) : (
+                <button className="btn btn-primary" onClick={handleFollow}>
+                  Seguir
+                </button>
+              );
+            })}
+
+          <span>
+            Seguidores: {userVisited && userVisited.userFollowers.length} |{" "}
+          </span>
+          <span>
+            Siguiendo: {userVisited && userVisited.userFollowing.length}
+          </span>
         </div>
         <div className="row mt-4">
           <div className="col">
-            {user &&
-              user.userTweets
+            {userVisited &&
+              userVisited.userTweets
                 .map((twit) => {
                   return (
                     <div class="tweet-container">
                       <div class="row">
                         <div class="col-md-2">
-                          <Link to={`/profile/${user.userName}`}>
+                          <Link to={`/profile/${userVisited.userName}`}>
                             <img
                               class="rounded-circle tweetAvatar"
                               src="{twit.user.userPhoto}"
@@ -119,10 +135,10 @@ function Profile() {
 
                         <div class="col-md-10">
                           <strong>
-                            {user.firstName} {user.lastName}
+                            {userVisited.firstName} {userVisited.lastName}
                           </strong>
-                          <Link to={`/profile/${user.userName}`}>
-                            <span> @{user.userName} </span>
+                          <Link to={`/profile/${userVisited.userName}`}>
+                            <span> @{userVisited.userName} </span>
                           </Link>
 
                           <p>{twit.text}</p>
