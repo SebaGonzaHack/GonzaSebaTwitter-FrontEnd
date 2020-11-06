@@ -37,7 +37,23 @@ function Profile() {
       `http://localhost:8000/users/follow/${username}`,
       {
         username: state.twitterReducer.username,
-        usertofollow: username,
+        userToFollow: username,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${state.twitterReducer.token}`,
+        },
+      }
+    );
+  }
+
+  function handleUnfollow() {
+    axios.post(
+      `http://localhost:8000/users/unfollow/${username}`,
+      {
+        username: state.twitterReducer.username,
+        userToUnfollow: username,
       },
       {
         headers: {
@@ -77,6 +93,9 @@ function Profile() {
           <hr />
           <button className="btn btn-primary" onClick={handleFollow}>
             Seguir
+          </button>
+          <button className="btn btn-danger" onClick={handleUnfollow}>
+            Dejar de seguir
           </button>
           <span>Seguidores: {user && user.userFollowers.length} | </span>
           <span>Siguiendo: {user && user.userFollowing.length}</span>
