@@ -16,19 +16,6 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  function handleLogin(username, password) {
-    axios
-      .post("http://localhost:8000/login", {
-        username: username,
-        password: password,
-      })
-      .then((response) => {
-        dispatch(createToken(response.data, username));
-        history.push("/");
-      })
-      .catch((error) => {});
-  }
-
   function handleRegister(newUser) {
     axios
       .post("http://localhost:8000/register", {

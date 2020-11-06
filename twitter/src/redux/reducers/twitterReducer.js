@@ -1,4 +1,4 @@
-export default function twitterReducer(state = { logged: false }, action) {
+export default function twitterReducer(state = {}, action) {
   switch (action.type) {
     case "CREATE_TOKEN":
       return {
@@ -8,9 +8,7 @@ export default function twitterReducer(state = { logged: false }, action) {
       };
 
     case "CREATE_TWEET":
-      return {
-        //
-      };
+      return {};
 
     default:
       return state;

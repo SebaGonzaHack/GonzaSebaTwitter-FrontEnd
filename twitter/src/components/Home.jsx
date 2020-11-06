@@ -3,22 +3,45 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Nav from "./partials/Nav";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function Home() {
   const state = useSelector((state) => state);
-  const [tweet, setTweet] = useState();
+
+  const [tweets, setTweets] = useState();
+  const [text, setText] = useState();
+  const history = useHistory();
+
+  function handleTweetPost() {
+    axios
+      .post(
+        `http://localhost:8000/twitear`,
+        {
+          twitContent: text,
+          username: state.twitterReducer.username,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${state.twitterReducer.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        history.push("/");
+      });
+  }
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/tweets/`, {
+      .get(`http://localhost:8000/tweets`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${state.twitterReducer.token}`,
         },
       })
       .then((res) => {
-        setTweet(res.data);
+        setTweets(res.data);
       });
   }, []);
 
@@ -28,47 +51,49 @@ function Home() {
       <div className="container">
         <div className="row">
           <div className="col-md-6">
-            {tweet &&
-              tweet.map((twit) => {
-                return (
-                  <div class="tweet-container">
-                    <div class="row">
-                      <div class="col-md-2">
-                        <Link to={`/profile/${twit.user.userName}`}>
-                          <img
-                            class="rounded-circle tweetAvatar"
-                            src="{twit.user.userPhoto}"
-                          />
-                        </Link>
+            {tweets &&
+              tweets
+                .map((twit) => {
+                  return (
+                    <div class="tweet-container">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <Link to={`/profile/${twit.user.userName}`}>
+                            <img
+                              class="rounded-circle tweetAvatar"
+                              src="{twit.user.userPhoto}"
+                            />
+                          </Link>
+                        </div>
+
+                        <div class="col-md-10">
+                          <strong>
+                            {twit.user.firstName} {twit.user.lastName}
+                          </strong>
+                          <Link to={`/profile/${twit.user.userName}`}>
+                            <span> @{twit.user.userName} </span>
+                          </Link>
+
+                          <p>{twit.text}</p>
+                        </div>
                       </div>
 
-                      <div class="col-md-10">
-                        <strong>
-                          {twit.user.firstName} {twit.user.lastName}
-                        </strong>
-                        <Link to={`/profile/${twit.user.userName}`}>
-                          <span> @{twit.user.userName} </span>
-                        </Link>
+                      <hr />
+                      <span>{twit.createdAt} | </span>
 
-                        <p>{twit.text}</p>
-                      </div>
+                      <span>
+                        <Link
+                          to="http://localhost:3000/tweet/like/${twit._id}"
+                          method="POST"
+                        >
+                          <i class="far fa-heart mr-1"></i>
+                        </Link>
+                        {twit.likes.length}
+                      </span>
                     </div>
-
-                    <hr />
-                    <span>{twit.createdAt} | </span>
-
-                    <span>
-                      <Link
-                        to="http://localhost:3000/tweet/like/${twit._id}"
-                        method="POST"
-                      >
-                        <i class="far fa-heart mr-1"></i>
-                      </Link>
-                      {twit.likes.length}
-                    </span>
-                  </div>
-                );
-              })}
+                  );
+                })
+                .reverse()}
           </div>
 
           <div className="col-md-6">
@@ -83,10 +108,19 @@ function Home() {
                   rows="10"
                   placeholder="¿Qué está pasando?"
                   type="text"
+                  onChange={(e) => {
+                    setText(e.target.value);
+                  }}
                 ></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary">
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={() => {
+                  handleTweetPost();
+                }}
+              >
                 Twitear
               </button>
             </form>

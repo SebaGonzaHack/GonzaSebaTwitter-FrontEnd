@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import persistor from "../../index";
+import { NavLink } from "react-router-dom";
 
 const Nav = () => {
   const state = useSelector((state) => state);
@@ -10,7 +11,6 @@ const Nav = () => {
       <a class="navbar-brand text-primary" href="/">
         Mini-Twitter
       </a>
-
       <button
         class="navbar-toggler"
         type="button"
@@ -22,7 +22,6 @@ const Nav = () => {
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
@@ -31,9 +30,12 @@ const Nav = () => {
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/profile">
+            <NavLink
+              class="nav-link"
+              to={`/profile/${state.twitterReducer.username}`}
+            >
               Perfil
-            </a>
+            </NavLink>
           </li>
 
           <li class="nav-item">
@@ -43,23 +45,27 @@ const Nav = () => {
           </li>
         </ul>
       </div>
-
-      <div class="my-2 my-lg-0 text-light">
-        Hola @{state.twitterReducer.username}
-      </div>
-      <a
-        href="/login"
-        class="btn btn-warning ml-3"
-        onClick={() => {
-          persistor.purge();
-        }}
-      >
-        Logout
-      </a>
-
-      <a class="btn btn-warning" href="/login">
-        Login
-      </a>
+      {state.twitterReducer.token ? (
+        <>
+          <div class="my-2 my-lg-0 text-light">
+            Hola @{state.twitterReducer.username}
+          </div>
+          <a
+            href="/login"
+            class="btn btn-warning ml-3"
+            onClick={() => {
+              persistor.purge();
+            }}
+          >
+            Logout
+          </a>{" "}
+        </>
+      ) : (
+        <a class="btn btn-warning" href="/login">
+          Login
+        </a>
+      )}
+      ;
     </nav>
   );
 };
