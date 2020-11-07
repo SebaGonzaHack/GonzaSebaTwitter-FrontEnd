@@ -5,6 +5,7 @@ import Nav from "./partials/Nav";
 import axios from "axios";
 import { createTweet } from "../redux/actions/actions";
 import FollowButton from "./partials/FollowButton";
+import LikeButton from "./partials/LikeButton";
 
 function Profile() {
   const state = useSelector((state) => state);
@@ -57,7 +58,6 @@ function Profile() {
 
           <div class="col-md-10">
             <p>{userVisited && userVisited.bio}</p>
-            {userVisited && console.log(userVisited)}
           </div>
           <hr />
 
@@ -102,15 +102,10 @@ function Profile() {
                       <hr />
                       <span>{twit.createdAt} | </span>
 
-                      <span>
-                        <Link
-                          to={`http://localhost:3000/tweet/like/${twit._id}`}
-                          method="POST"
-                        >
-                          <i class="far fa-heart mr-1"></i>
-                        </Link>
-                        {twit.likes.length}
-                      </span>
+                      <LikeButton
+                        twit={twit}
+                        userLiking={state.twitterReducer.user}
+                      />
                     </div>
                   );
                 })

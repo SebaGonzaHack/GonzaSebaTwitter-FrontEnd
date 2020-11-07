@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Nav from "./partials/Nav";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
+import LikeButton from "./partials/LikeButton";
 
 function Home() {
   const state = useSelector((state) => state);
@@ -80,16 +81,10 @@ function Home() {
 
                       <hr />
                       <span>{twit.createdAt} | </span>
-
-                      <span>
-                        <Link
-                          to="http://localhost:3000/tweet/like/${twit._id}"
-                          method="POST"
-                        >
-                          <i class="far fa-heart mr-1"></i>
-                        </Link>
-                        {twit.likes.length}
-                      </span>
+                      <LikeButton
+                        twit={twit}
+                        userLiking={state.twitterReducer.user}
+                      />
                     </div>
                   );
                 })
