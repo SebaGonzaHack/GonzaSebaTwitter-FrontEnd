@@ -4,6 +4,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import Nav from "./partials/Nav";
 import axios from "axios";
 import { createTweet } from "../redux/actions/actions";
+import FollowButton from "./partials/FollowButton";
 
 function Profile() {
   const state = useSelector((state) => state);
@@ -30,38 +31,6 @@ function Profile() {
       .then((res) => {
         history.push(`/profile/${username}`);
       });
-  }
-
-  function handleFollow() {
-    axios.post(
-      `http://localhost:8000/users/follow/${username}`,
-      {
-        username: state.twitterReducer.username,
-        userToFollow: username,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${state.twitterReducer.token}`,
-        },
-      }
-    );
-  }
-
-  function handleUnfollow() {
-    axios.post(
-      `http://localhost:8000/users/unfollow/${username}`,
-      {
-        username: state.twitterReducer.username,
-        userToUnfollow: username,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${state.twitterReducer.token}`,
-        },
-      }
-    );
   }
 
   useEffect(() => {
@@ -91,23 +60,8 @@ function Profile() {
             {userVisited && console.log(userVisited)}
           </div>
           <hr />
-          {userVisited && userVisited.userFollowers.length === 0 && (
-            <button className="btn btn-primary" onClick={handleFollow}>
-              Seguir
-            </button>
-          )}
-          {userVisited &&
-            userVisited.userFollowers.map((user) => {
-              return user.userName === state.twitterReducer.username ? (
-                <button className="btn btn-danger" onClick={handleUnfollow}>
-                  Dejar de seguir
-                </button>
-              ) : (
-                <button className="btn btn-primary" onClick={handleFollow}>
-                  Seguir
-                </button>
-              );
-            })}
+
+          <FollowButton username={username} userVisited={userVisited} />
 
           <span>
             Seguidores: {userVisited && userVisited.userFollowers.length} |{" "}
