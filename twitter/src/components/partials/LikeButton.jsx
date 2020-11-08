@@ -23,10 +23,18 @@ const LikeButton = ({ twit, userLiking }) => {
 
   return (
     <>
-      <span>
-        <i class="far fa-heart mr-1" onClick={handleLike}></i>
-        {twit.likes.length}
-      </span>
+      {twit.likes.length == 0 ||
+      !twit.likes.includes(state.twitterReducer.user._id) ? (
+        <span>
+          <i class="far fa-heart mr-1" onClick={handleLike}></i>
+          {twit.likes.length}
+        </span>
+      ) : (
+        <span>
+          <i class="fas fa-heart mr-1" onClick={handleLike}></i>
+          {twit.likes.length}
+        </span>
+      )}
     </>
   );
 };
