@@ -9,7 +9,24 @@ export default function twitterReducer(state = {}, action) {
       };
 
     case "CREATE_TWEET":
-      return {};
+      return {
+        ...state,
+        tweets: [
+          ...state.tweets,
+          {
+            text: action.payload.text,
+            createdAt: Date.now(),
+            user: action.payload.user,
+            likes: [],
+          },
+        ],
+      };
+
+    case "TWEET_LIST":
+      return {
+        ...state,
+        tweets: action.payload,
+      };
 
     default:
       return state;

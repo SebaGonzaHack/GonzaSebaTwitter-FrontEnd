@@ -5,6 +5,7 @@ import Nav from "./partials/Nav";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import LikeButton from "./partials/LikeButton";
+import { tweetList, createTweet } from "../redux/actions/actions";
 
 function Home() {
   const state = useSelector((state) => state);
@@ -12,6 +13,7 @@ function Home() {
   const [tweets, setTweets] = useState();
   const [text, setText] = useState();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   function handleTweetPost() {
     axios
@@ -29,6 +31,8 @@ function Home() {
         }
       )
       .then((res) => {
+        dispatch(createTweet(text, state.twitterReducer.user));
+
         history.push("/");
       });
   }
@@ -43,6 +47,7 @@ function Home() {
       })
       .then((res) => {
         setTweets(res.data);
+        dispatch(tweetList(res.data));
       });
   }, []);
 
@@ -52,8 +57,8 @@ function Home() {
       <div className="container">
         <div className="row">
           <div className="col-md-6">
-            {tweets &&
-              tweets
+            {state.twitterReducer.tweets &&
+              state.twitterReducer.tweets
                 .map((twit) => {
                   return (
                     <div class="tweet-container">

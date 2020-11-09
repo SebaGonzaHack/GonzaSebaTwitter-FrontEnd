@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams, useHistory } from "react-router-dom";
 import Nav from "./partials/Nav";
 import axios from "axios";
-import { createTweet } from "../redux/actions/actions";
+import { createTweet, tweetList } from "../redux/actions/actions";
 import FollowButton from "./partials/FollowButton";
 import LikeButton from "./partials/LikeButton";
 
@@ -13,6 +13,7 @@ function Profile() {
   const [userVisited, setUserVisited] = useState();
   const [text, setText] = useState();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   function handleTweetPost() {
     axios
@@ -31,6 +32,7 @@ function Profile() {
       )
       .then((res) => {
         history.push(`/users/${username}`);
+        dispatch(createTweet(text, state.twitterReducer.user));
       });
   }
 
@@ -44,6 +46,7 @@ function Profile() {
       })
       .then((res) => {
         setUserVisited(res.data);
+        dispatch(tweetList(res.data.userTweets));
       });
   }, []);
 
@@ -73,7 +76,8 @@ function Profile() {
         <div className="row mt-4">
           <div className="col">
             {userVisited &&
-              userVisited.userTweets
+              state.twitterReducer.tweets &&
+              state.twitterReducer.tweets
                 .map((twit) => {
                   return (
                     <div class="tweet-container">

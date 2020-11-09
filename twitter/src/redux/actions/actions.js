@@ -12,4 +12,11 @@ const createTweet = (text, user) => {
   };
 };
 
-export { createToken, createTweet };
+const tweetList = (tweets) => {
+  return {
+    type: "TWEET_LIST",
+    payload: tweets,
+  };
+};
+
+export { createToken, createTweet, tweetList };
