@@ -32,7 +32,7 @@ const Nav = () => {
           <li class="nav-item">
             <NavLink
               class="nav-link"
-              to={`/profile/${state.twitterReducer.username}`}
+              to={`/users/${state.twitterReducer.username}`}
             >
               Perfil
             </NavLink>

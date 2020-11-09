@@ -18,7 +18,7 @@ function App() {
       <div className="App">
         <Switch>
           <PrivateRoute exact path="/" component={Home} />
-          <PrivateRoute path="/profile/:username" component={Profile} />
+          <PrivateRoute path="/users/:username" component={Profile} />
           <PublicRoute restricted={true} path="/login" component={Login} />
           <PublicRoute
             restricted={true}

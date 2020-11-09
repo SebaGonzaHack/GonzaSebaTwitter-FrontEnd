@@ -17,7 +17,7 @@ function Profile() {
   function handleTweetPost() {
     axios
       .post(
-        `http://localhost:8000/twitear`,
+        `http://localhost:8000/tweets`,
         {
           twitContent: text,
           username: state.twitterReducer.username,
@@ -30,13 +30,13 @@ function Profile() {
         }
       )
       .then((res) => {
-        history.push(`/profile/${username}`);
+        history.push(`/users/${username}`);
       });
   }
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/profile/${username}`, {
+      .get(`http://localhost:8000/users/${username}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${state.twitterReducer.token}`,
@@ -79,7 +79,7 @@ function Profile() {
                     <div class="tweet-container">
                       <div class="row">
                         <div class="col-md-2">
-                          <Link to={`/profile/${userVisited.userName}`}>
+                          <Link to={`/users/${userVisited.userName}`}>
                             <img
                               class="rounded-circle tweetAvatar"
                               src="{twit.user.userPhoto}"
@@ -91,7 +91,7 @@ function Profile() {
                           <strong>
                             {userVisited.firstName} {userVisited.lastName}
                           </strong>
-                          <Link to={`/profile/${userVisited.userName}`}>
+                          <Link to={`/users/${userVisited.userName}`}>
                             <span> @{userVisited.userName} </span>
                           </Link>
 
@@ -114,7 +114,7 @@ function Profile() {
 
           {state.twitterReducer.username === username && (
             <div className="col">
-              <form action="/twitear" method="POST">
+              <form action="/tweets" method="POST">
                 <div class="form-group">
                   <label for="twitContent">Escribe tu twit aquí</label>
                   <textarea

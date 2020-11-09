@@ -16,7 +16,7 @@ function Home() {
   function handleTweetPost() {
     axios
       .post(
-        `http://localhost:8000/twitear`,
+        `http://localhost:8000/tweets`,
         {
           twitContent: text,
           username: state.twitterReducer.username,
@@ -59,7 +59,7 @@ function Home() {
                     <div class="tweet-container">
                       <div class="row">
                         <div class="col-md-2">
-                          <Link to={`/profile/${twit.user.userName}`}>
+                          <Link to={`/users/${twit.user.userName}`}>
                             <img
                               class="rounded-circle tweetAvatar"
                               src="{twit.user.userPhoto}"
@@ -71,7 +71,7 @@ function Home() {
                           <strong>
                             {twit.user.firstName} {twit.user.lastName}
                           </strong>
-                          <Link to={`/profile/${twit.user.userName}`}>
+                          <Link to={`/users/${twit.user.userName}`}>
                             <span> @{twit.user.userName} </span>
                           </Link>
 
@@ -92,7 +92,7 @@ function Home() {
           </div>
 
           <div className="col-md-6">
-            <form action="/twitear" method="POST">
+            <form action="/tweets" method="POST">
               <div class="form-group">
                 <label for="twitContent">Escribe tu twit aquí</label>
                 <textarea
