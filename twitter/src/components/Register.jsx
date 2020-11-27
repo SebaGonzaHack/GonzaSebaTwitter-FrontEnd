@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Nav from "./partials/Nav";
+import Navigation from "./partials/Navigation";
 import RegisterForm from "./partials/RegisterForm";
 
 const Register = () => {
   return (
     <>
-      <Nav />
+      <Navigation />
       <RegisterForm />
     </>
   );

@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Nav from "./partials/Nav";
+import Navigation from "./partials/Navigation";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import LikeButton from "./partials/LikeButton";
@@ -53,7 +53,7 @@ function Home() {
 
   return (
     <>
-      <Nav />
+      <Navigation />
       <div className="container">
         <div className="row">
           <div className="col-md-6">
@@ -67,7 +67,7 @@ function Home() {
                           <Link to={`/users/${twit.user.userName}`}>
                             <img
                               class="rounded-circle tweetAvatar"
-                              src="{twit.user.userPhoto}"
+                              src={twit.user.userPhoto}
                             />
                           </Link>
                         </div>
