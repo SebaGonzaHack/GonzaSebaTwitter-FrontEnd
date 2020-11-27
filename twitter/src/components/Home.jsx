@@ -1,4 +1,3 @@
-import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Navigation from "./partials/Navigation";
@@ -8,9 +7,8 @@ import LikeButton from "./partials/LikeButton";
 import { tweetList, createTweet } from "../redux/actions/actions";
 
 function Home() {
-  const state = useSelector((state) => state);
-
-  const [tweets, setTweets] = useState();
+  const state = useSelector((state) => state.twitterReducer);
+  const tweets = useSelector((state) => state.tweets);
   const [text, setText] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -46,7 +44,6 @@ function Home() {
         },
       })
       .then((res) => {
-        setTweets(res.data);
         dispatch(tweetList(res.data));
       });
   }, []);
@@ -57,37 +54,41 @@ function Home() {
       <div className="container">
         <div className="row">
           <div className="col-md-6">
-            {state.twitterReducer.tweets &&
-              state.twitterReducer.tweets
-                .map((twit) => {
+            {tweets &&
+              tweets
+                .map((tweet) => {
                   return (
                     <div class="tweet-container">
                       <div class="row">
                         <div class="col-md-2">
-                          <Link to={`/users/${twit.user.userName}`}>
+                          <Link to={`/users/${tweet.user.userName}`}>
                             <img
                               class="rounded-circle tweetAvatar"
+<<<<<<< Updated upstream
                               src={twit.user.userPhoto}
+=======
+                              src="{tweet.user.userPhoto}"
+>>>>>>> Stashed changes
                             />
                           </Link>
                         </div>
 
                         <div class="col-md-10">
                           <strong>
-                            {twit.user.firstName} {twit.user.lastName}
+                            {tweet.user.firstName} {tweet.user.lastName}
                           </strong>
-                          <Link to={`/users/${twit.user.userName}`}>
-                            <span> @{twit.user.userName} </span>
+                          <Link to={`/users/${tweet.user.userName}`}>
+                            <span> @{tweet.user.userName} </span>
                           </Link>
 
-                          <p>{twit.text}</p>
+                          <p>{tweet.text}</p>
                         </div>
                       </div>
 
                       <hr />
-                      <span>{twit.createdAt} | </span>
+                      <span>{tweet.createdAt} | </span>
                       <LikeButton
-                        twit={twit}
+                        tweet={tweet}
                         userLiking={state.twitterReducer.user}
                       />
                     </div>
@@ -99,7 +100,7 @@ function Home() {
           <div className="col-md-6">
             <form action="/tweets" method="POST">
               <div class="form-group">
-                <label for="twitContent">Escribe tu twit aquí</label>
+                <label for="twitContent">Escribe tu tweet aquí</label>
                 <textarea
                   name="twitContent"
                   id="twitContent"

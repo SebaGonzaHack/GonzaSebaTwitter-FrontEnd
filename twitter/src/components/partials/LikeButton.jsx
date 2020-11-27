@@ -6,19 +6,21 @@ const LikeButton = ({ twit, userLiking }) => {
   const state = useSelector((state) => state);
 
   function handleLike() {
-    axios.post(
-      `http://localhost:8000/tweet/like`,
-      {
-        userLiking: userLiking,
-        twit: twit,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${state.twitterReducer.token}`,
+    axios
+      .post(
+        `http://localhost:8000/tweet/like`,
+        {
+          userLiking: userLiking,
+          twit: twit,
         },
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${state.twitterReducer.token}`,
+          },
+        }
+      )
+      .then((res) => {});
   }
 
   return (
