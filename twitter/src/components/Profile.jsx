@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams, useHistory } from "react-router-dom";
-import Nav from "./partials/Navigation";
 import axios from "axios";
-import { createTweet, tweetList } from "../redux/actions/actions";
 import FollowButton from "./partials/FollowButton";
 import LikeButton from "./partials/LikeButton";
 import Navigation from "./partials/Navigation";
@@ -37,7 +35,7 @@ function Profile() {
       )
       .then((res) => {
         history.push(`/users/${username}`);
-        dispatch(createTweet(text, state.twitterReducer.user));
+        dispatch();
       });
   }
 
@@ -51,7 +49,7 @@ function Profile() {
       })
       .then((res) => {
         setUserVisited(res.data);
-        dispatch(tweetList(res.data.userTweets));
+        dispatch();
         dispatch(profileVisited(res.data));
       });
   }, []);

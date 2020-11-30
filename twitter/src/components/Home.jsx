@@ -4,7 +4,6 @@ import Navigation from "./partials/Navigation";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import LikeButton from "./partials/LikeButton";
-import { tweetList, createTweet } from "../redux/actions/actions";
 
 function Home() {
   const state = useSelector((state) => state.twitterReducer);
@@ -29,7 +28,7 @@ function Home() {
         }
       )
       .then((res) => {
-        dispatch(createTweet(text, state.twitterReducer.user));
+        dispatch();
 
         history.push("/");
       });
@@ -44,7 +43,7 @@ function Home() {
         },
       })
       .then((res) => {
-        dispatch(tweetList(res.data));
+        dispatch();
       });
   }, []);
 
@@ -62,10 +61,7 @@ function Home() {
                       <div class="row">
                         <div class="col-md-2">
                           <Link to={`/users/${tweet.user.userName}`}>
-                            <img
-                              class="rounded-circle tweetAvatar"
-                              src={twit.user.userPhoto}
-                            />
+                            <img class="rounded-circle tweetAvatar" src="" />
                           </Link>
                         </div>
 

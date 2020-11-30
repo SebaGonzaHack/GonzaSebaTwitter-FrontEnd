@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { createToken } from "../redux/actions/actions";
+import { useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
 const Login = () => {
@@ -17,9 +16,7 @@ const Login = () => {
         password: password,
       })
       .then((response) => {
-        dispatch(
-          createToken(response.data.token, username, response.data.user)
-        );
+        dispatch();
         history.push("/");
       })
       .catch((error) => {});
