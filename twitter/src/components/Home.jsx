@@ -64,11 +64,7 @@ function Home() {
                           <Link to={`/users/${tweet.user.userName}`}>
                             <img
                               class="rounded-circle tweetAvatar"
-<<<<<<< Updated upstream
                               src={twit.user.userPhoto}
-=======
-                              src="{tweet.user.userPhoto}"
->>>>>>> Stashed changes
                             />
                           </Link>
                         </div>
