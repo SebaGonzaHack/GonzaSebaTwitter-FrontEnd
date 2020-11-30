@@ -9,7 +9,18 @@ function tweetReducer(state = {}, action) {
         }
       });
     case "UNLIKE_TWEET":
-      return;
+      return state.map((tweet) => {
+        if (tweet.id === action.payload.tweetId) {
+          return {
+            ...tweet,
+            likes: tweet.likes.filter(
+              (user) => user.id !== action.payload.userId
+            ),
+          };
+        } else {
+          return tweet;
+        }
+      });
     default:
       break;
   }
