@@ -8,13 +8,13 @@ const FollowButton = ({ userVisited, username, user }) => {
     axios.post(
       `http://localhost:8000/users/follow/${username}`,
       {
-        username: state.twitterReducer.username,
+        username: state.user.username,
         userToFollow: username,
       },
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${state.twitterReducer.token}`,
+          Authorization: `Bearer ${state.token}`,
         },
       }
     );
@@ -23,13 +23,13 @@ const FollowButton = ({ userVisited, username, user }) => {
     axios.post(
       `http://localhost:8000/users/unfollow/${username}`,
       {
-        username: state.twitterReducer.username,
+        username: state.user.username,
         userToUnfollow: username,
       },
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${state.twitterReducer.token}`,
+          Authorization: `Bearer ${state.token}`,
         },
       }
     );
@@ -44,7 +44,7 @@ const FollowButton = ({ userVisited, username, user }) => {
       )}
       {userVisited &&
         userVisited.userFollowers.map((user) =>
-          user.userName === state.twitterReducer.username ? (
+          user.userName === state.user.username ? (
             <button className="btn btn-danger" onClick={handleUnfollow}>
               Dejar de seguir
             </button>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
+import { saveToken } from "../redux/actions/user";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -15,8 +16,8 @@ const Login = () => {
         username: username,
         password: password,
       })
-      .then((response) => {
-        dispatch();
+      .then((res) => {
+        dispatch(saveToken(res.data.token, res.data.user));
         history.push("/");
       })
       .catch((error) => {});

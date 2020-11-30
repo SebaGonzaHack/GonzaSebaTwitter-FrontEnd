@@ -17,20 +17,17 @@ const Navigation = () => {
             <Nav.Link class="nav-link" to="/">
               Home
             </Nav.Link>
-            <NavLink
-              class="nav-link"
-              to={`/users/${state.twitterReducer.username}`}
-            >
+            <NavLink class="nav-link" to={`/users/${state.user.username}`}>
               Perfil
             </NavLink>
             <Nav.Link to={"/edit"}>Editar Usuario</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <Nav>
-          {state.twitterReducer.token ? (
+          {state.user.token ? (
             <>
               <div class="my-2 my-lg-0 text-light">
-                Hola @{state.twitterReducer.username}
+                Hola @{state.user.username}
               </div>
               <a
                 href="/login"

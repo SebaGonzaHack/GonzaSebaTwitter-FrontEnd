@@ -5,4 +5,11 @@ const profileVisited = (user) => {
   };
 };
 
-export { profileVisited };
+const saveToken = (token, user) => {
+  return {
+    type: "SAVE_TOKEN",
+    payload: { token, user },
+  };
+};
+
+export { profileVisited, saveToken };

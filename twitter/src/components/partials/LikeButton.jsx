@@ -16,7 +16,7 @@ const LikeButton = ({ twit, userLiking }) => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${state.twitterReducer.token}`,
+            Authorization: `Bearer ${state.token}`,
           },
         }
       )
@@ -25,8 +25,7 @@ const LikeButton = ({ twit, userLiking }) => {
 
   return (
     <>
-      {twit.likes.length == 0 ||
-      !twit.likes.includes(state.twitterReducer.user._id) ? (
+      {twit.likes.length == 0 || !twit.likes.includes(state.user.user._id) ? (
         <span>
           <i class="far fa-heart mr-1" onClick={handleLike}></i>
           {twit.likes.length}

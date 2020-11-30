@@ -4,7 +4,7 @@ import { isLogin } from "../utils";
 import { useSelector } from "react-redux";
 
 const PublicRoute = ({ component: Component, restricted, ...rest }) => {
-  const state = useSelector((state) => state.twitterReducer);
+  const user = useSelector((state) => state.user);
 
   return (
     // restricted = false meaning public route
@@ -12,7 +12,7 @@ const PublicRoute = ({ component: Component, restricted, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        isLogin(state.token) && restricted ? (
+        isLogin(user.token) && restricted ? (
           <Redirect to="/" />
         ) : (
           <Component {...props} />

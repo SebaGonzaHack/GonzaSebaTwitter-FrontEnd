@@ -10,7 +10,7 @@ import { profileVisited } from "../redux/actions/user";
 
 function Profile() {
   const state = useSelector((state) => state);
-  const users = useSelector((state) => state.userReducer);
+  const user = useSelector((state) => state.user);
 
   const { username } = useParams();
   const [userVisited, setUserVisited] = useState();
@@ -24,12 +24,12 @@ function Profile() {
         `http://localhost:8000/tweets`,
         {
           twitContent: text,
-          username: state.twitterReducer.username,
+          username: state.user.username,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${state.twitterReducer.token}`,
+            Authorization: `Bearer ${state.token}`,
           },
         }
       )
@@ -44,7 +44,7 @@ function Profile() {
       .get(`http://localhost:8000/users/${username}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${state.twitterReducer.token}`,
+          Authorization: `Bearer ${state.token}`,
         },
       })
       .then((res) => {
@@ -91,7 +91,7 @@ function Profile() {
               </span>
             </div>
             <div className="row mt-4">
-              {state.twitterReducer.username === username && (
+              {state.user.username === username && (
                 <div className="col">
                   <form action="/tweets" method="POST">
                     <div class="form-group">
@@ -126,8 +126,8 @@ function Profile() {
             <div className="row mt-4">
               <div className="col">
                 {userVisited &&
-                  state.twitterReducer.tweets &&
-                  state.twitterReducer.tweets
+                  state.user.tweets &&
+                  state.user.tweets
                     .map((twit) => {
                       return (
                         <div class="row tweet-container">
@@ -155,7 +155,7 @@ function Profile() {
 
                           <LikeButton
                             twit={twit}
-                            userLiking={state.twitterReducer.user}
+                            userLiking={state.user.user}
                           />
                         </div>
                       );

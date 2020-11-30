@@ -4,6 +4,13 @@ export default function userReducer(state = {}, action) {
       console.log(state);
       return { ...state, visited: action.payload };
 
+    case "SAVE_TOKEN":
+      return {
+        ...state,
+        token: action.payload.token,
+        user: action.payload.user,
+      };
+
     default:
       return state;
   }

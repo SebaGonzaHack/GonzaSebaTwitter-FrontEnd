@@ -4,7 +4,7 @@ import { isLogin } from "../utils";
 import { useSelector } from "react-redux";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const state = useSelector((state) => state.twitterReducer);
+  const user = useSelector((state) => state.user);
 
   return (
     // Show the component only when the user is logged in
@@ -12,7 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        isLogin(state.token) ? (
+        isLogin(user.token) ? (
           <Component {...props} />
         ) : (
           <Redirect to="/login" />

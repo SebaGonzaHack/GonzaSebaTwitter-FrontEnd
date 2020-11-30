@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import LikeButton from "./partials/LikeButton";
 
 function Home() {
-  const state = useSelector((state) => state.twitterReducer);
+  const state = useSelector((state) => state.user);
   const tweets = useSelector((state) => state.tweets);
   const [text, setText] = useState();
   const history = useHistory();
@@ -18,12 +18,12 @@ function Home() {
         `http://localhost:8000/tweets`,
         {
           twitContent: text,
-          username: state.twitterReducer.username,
+          username: state.user.username,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${state.twitterReducer.token}`,
+            Authorization: `Bearer ${state.token}`,
           },
         }
       )
@@ -39,7 +39,7 @@ function Home() {
       .get(`http://localhost:8000/tweets`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${state.twitterReducer.token}`,
+          Authorization: `Bearer ${state.user.token}`,
         },
       })
       .then((res) => {
@@ -79,10 +79,7 @@ function Home() {
 
                       <hr />
                       <span>{tweet.createdAt} | </span>
-                      <LikeButton
-                        tweet={tweet}
-                        userLiking={state.twitterReducer.user}
-                      />
+                      <LikeButton tweet={tweet} userLiking={state.user.user} />
                     </div>
                   );
                 })
