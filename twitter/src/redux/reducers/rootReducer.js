@@ -3,8 +3,6 @@ import twitterReducer from "./twitterReducer";
 import userReducer from "./userReducer";
 import tweet from "./tweetReducer";
 
-const rootReducer = combineReducers({ twitterReducer, userReducer });
-
-const rootReducer = combineReducers({ twitterReducer, tweet });
+const rootReducer = combineReducers({ twitterReducer, userReducer, tweet });
 
 export default rootReducer;
