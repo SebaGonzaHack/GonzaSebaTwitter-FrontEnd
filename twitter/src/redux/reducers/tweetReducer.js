@@ -1,5 +1,8 @@
-function tweetReducer(state = {}, action) {
+export default function tweetReducer(state = [], action) {
   switch (action.type) {
+    case "SHOW_TWEETS":
+      return action.payload;
+
     case "LIKE_TWEET":
       return state.map((tweet) => {
         if (tweet.id === action.payload.tweetId) {
@@ -21,7 +24,11 @@ function tweetReducer(state = {}, action) {
           return tweet;
         }
       });
+
+    case "ADD_TWEET":
+      return [...state, action.payload];
+
     default:
-      break;
+      return state;
   }
 }

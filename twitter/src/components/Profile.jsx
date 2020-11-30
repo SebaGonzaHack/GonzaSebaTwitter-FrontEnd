@@ -9,7 +9,6 @@ import Sidebar from "./partials/Sidebar";
 import { profileVisited } from "../redux/actions/user";
 
 function Profile() {
-  const state = useSelector((state) => state);
   const user = useSelector((state) => state.user);
 
   const { username } = useParams();
@@ -24,12 +23,12 @@ function Profile() {
         `http://localhost:8000/tweets`,
         {
           twitContent: text,
-          username: state.user.username,
+          username: user.username,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${state.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         }
       )
@@ -44,7 +43,7 @@ function Profile() {
       .get(`http://localhost:8000/users/${username}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${state.token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       })
       .then((res) => {
@@ -91,7 +90,7 @@ function Profile() {
               </span>
             </div>
             <div className="row mt-4">
-              {state.user.username === username && (
+              {user.username === username && (
                 <div className="col">
                   <form action="/tweets" method="POST">
                     <div class="form-group">
@@ -126,8 +125,8 @@ function Profile() {
             <div className="row mt-4">
               <div className="col">
                 {userVisited &&
-                  state.user.tweets &&
-                  state.user.tweets
+                  user.tweets &&
+                  user.tweets
                     .map((twit) => {
                       return (
                         <div class="row tweet-container">
@@ -153,10 +152,7 @@ function Profile() {
                           <hr />
                           <span>{twit.createdAt} | </span>
 
-                          <LikeButton
-                            twit={twit}
-                            userLiking={state.user.user}
-                          />
+                          <LikeButton twit={twit} userLiking={user.user} />
                         </div>
                       );
                     })

@@ -5,11 +5,8 @@ export default function userReducer(state = {}, action) {
       return { ...state, visited: action.payload };
 
     case "SAVE_TOKEN":
-      return {
-        ...state,
-        token: action.payload.token,
-        user: action.payload.user,
-      };
+      const user = { ...action.payload.user, token: action.payload.token };
+      return user;
 
     default:
       return state;

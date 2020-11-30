@@ -4,31 +4,34 @@ import Navigation from "./partials/Navigation";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import LikeButton from "./partials/LikeButton";
+import { showTweets, addTweet } from "../redux/actions/actionsTweet";
 
 function Home() {
-  const state = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const tweets = useSelector((state) => state.tweets);
   const [text, setText] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  function handleTweetPost() {
+  function handleTweetPost(text, user) {
+    console.log(user);
     axios
       .post(
         `http://localhost:8000/tweets`,
         {
-          twitContent: text,
-          username: state.user.username,
+          text: text,
+          user: user._id,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${state.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         }
       )
       .then((res) => {
-        dispatch();
+        console.log(res.data);
+        dispatch(addTweet(res.data));
 
         history.push("/");
       });
@@ -39,11 +42,11 @@ function Home() {
       .get(`http://localhost:8000/tweets`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${state.user.token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       })
       .then((res) => {
-        dispatch();
+        dispatch(showTweets(res.data));
       });
   }, []);
 
@@ -79,7 +82,7 @@ function Home() {
 
                       <hr />
                       <span>{tweet.createdAt} | </span>
-                      <LikeButton tweet={tweet} userLiking={state.user.user} />
+                      {/* <LikeButton tweet={tweet} userLiking={user} /> */}
                     </div>
                   );
                 })
@@ -108,7 +111,7 @@ function Home() {
                 type="button"
                 class="btn btn-primary"
                 onClick={() => {
-                  handleTweetPost();
+                  handleTweetPost(text, user);
                 }}
               >
                 Twitear

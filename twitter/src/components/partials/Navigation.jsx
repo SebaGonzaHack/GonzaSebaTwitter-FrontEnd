@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, MenuItem } from "react-bootstrap";
 
 const Navigation = () => {
-  const state = useSelector((state) => state);
+  const user = useSelector((state) => state.user);
 
   return (
     <>
@@ -17,18 +17,16 @@ const Navigation = () => {
             <Nav.Link class="nav-link" to="/">
               Home
             </Nav.Link>
-            <NavLink class="nav-link" to={`/users/${state.user.username}`}>
+            <NavLink class="nav-link" to={`/users/${user.userName}`}>
               Perfil
             </NavLink>
             <Nav.Link to={"/edit"}>Editar Usuario</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <Nav>
-          {state.user.token ? (
+          {user.token ? (
             <>
-              <div class="my-2 my-lg-0 text-light">
-                Hola @{state.user.username}
-              </div>
+              <div class="my-2 my-lg-0 text-light">Hola @{user.userName}</div>
               <a
                 href="/login"
                 class="btn btn-warning ml-3"

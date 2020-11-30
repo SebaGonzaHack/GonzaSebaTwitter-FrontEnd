@@ -12,4 +12,18 @@ function removeLike(userId, tweetId) {
   };
 }
 
-export { addLike, removeLike };
+function showTweets(tweets) {
+  return {
+    type: "SHOW_TWEETS",
+    payload: tweets,
+  };
+}
+
+function addTweet(tweet) {
+  return {
+    type: "ADD_TWEET",
+    payload: tweet,
+  };
+}
+
+export { addLike, removeLike, showTweets, addTweet };
