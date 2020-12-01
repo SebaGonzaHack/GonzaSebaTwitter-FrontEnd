@@ -26,9 +26,7 @@ const RegisterForm = () => {
         userphoto: newUser.userphoto,
         bio: newUser.bio,
       })
-      .then((response) => {
-        console.log(response.data);
-      })
+      .then((response) => {})
       .catch((error) => {
         console.log(error);
       });

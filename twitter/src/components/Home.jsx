@@ -14,7 +14,6 @@ function Home() {
   const dispatch = useDispatch();
 
   function handleTweetPost(text, user) {
-    console.log(user);
     axios
       .post(
         `http://localhost:8000/tweets`,
@@ -30,8 +29,7 @@ function Home() {
         }
       )
       .then((res) => {
-        console.log(res.data);
-        dispatch(addTweet(res.data));
+        dispatch(addTweet(res.data, user));
 
         history.push("/");
       });

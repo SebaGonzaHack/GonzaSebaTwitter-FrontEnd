@@ -19,10 +19,10 @@ function showTweets(tweets) {
   };
 }
 
-function addTweet(tweet) {
+function addTweet(tweet, user) {
   return {
     type: "ADD_TWEET",
-    payload: tweet,
+    payload: { tweet, user },
   };
 }
 
