@@ -88,3 +88,8 @@ textarea {
   min-width: 0;
   width: 100%;
 }
+
+.side-link {
+  display: block;
+  text-align: center;
+}

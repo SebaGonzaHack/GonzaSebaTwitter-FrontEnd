@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import persistor from "../../index";
-import { NavLink } from "react-router-dom";
-import { Navbar, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
 
 const Navigation = () => {
   const user = useSelector((state) => state.user);
@@ -14,13 +14,13 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link class="nav-link" to="/">
+            <Link class="nav-link" to="/">
               Home
-            </Nav.Link>
-            <NavLink class="nav-link" to={`/users/${user.userName}`}>
+            </Link>
+            <Link class="nav-link" to={`/users/${user.userName}`}>
               Perfil
-            </NavLink>
-            <Nav.Link to={"/edit"}>Editar Usuario</Nav.Link>
+            </Link>
+            <Link to={"/edit"}>Editar Usuario</Link>
           </Nav>
         </Navbar.Collapse>
         <Nav>

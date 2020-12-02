@@ -3,12 +3,7 @@ import Profile from "./components/Profile";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import {
-  Switch,
-  Route,
-  BrowserRouter as Router,
-  Redirect,
-} from "react-router-dom";
+import { Switch, BrowserRouter as Router } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 

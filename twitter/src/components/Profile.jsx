@@ -55,8 +55,21 @@ function Profile() {
       <Navigation />
       <div className="container">
         <div className="row">
-          <div className="col-2 sideCol">{Sidebar}</div>
-          <div className="col-8">
+          <div className="col-3 sideCol">
+            <Link className="side-link" to="/">
+              Mini-Twitter
+            </Link>
+            <Link className="side-link" to="/">
+              Home
+            </Link>
+            <Link className="side-link" to={`/users/${user.userName}`}>
+              Perfil
+            </Link>
+            <Link className="side-link" to={"/edit"}>
+              Editar Perfil
+            </Link>
+          </div>
+          <div className="col-6">
             <div class="row mt-5">
               <div class="col-md-2">
                 <img
@@ -157,7 +170,7 @@ function Profile() {
               </div>
             </div>
           </div>
-          <div className="col-2 sideCol"></div>
+          <div className="col-3 sideCol"></div>
         </div>
       </div>
     </>
