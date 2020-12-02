@@ -7,12 +7,12 @@ import LikeButton from "./partials/LikeButton";
 import Navigation from "./partials/Navigation";
 import Sidebar from "./partials/Sidebar";
 import { profileVisited } from "../redux/actions/user";
+import { showTweets, addTweet } from "../redux/actions/actionsTweet";
 
 function Profile() {
   const user = useSelector((state) => state.user);
-
+  const userVisited = useSelector((state) => state.user.visited);
   const { username } = useParams();
-  const [userVisited, setUserVisited] = useState();
   const [text, setText] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -33,8 +33,7 @@ function Profile() {
         }
       )
       .then((res) => {
-        history.push(`/users/${username}`);
-        dispatch();
+        dispatch(addTweet(res.data));
       });
   }
 
@@ -47,8 +46,6 @@ function Profile() {
         },
       })
       .then((res) => {
-        setUserVisited(res.data);
-        dispatch();
         dispatch(profileVisited(res.data));
       });
   }, []);
@@ -125,8 +122,8 @@ function Profile() {
             <div className="row mt-4">
               <div className="col">
                 {userVisited &&
-                  user.tweets &&
-                  user.tweets
+                  userVisited.userTweets &&
+                  userVisited.userTweets
                     .map((twit) => {
                       return (
                         <div class="row tweet-container">
