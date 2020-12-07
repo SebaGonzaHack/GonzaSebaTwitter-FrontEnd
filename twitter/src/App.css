@@ -51,7 +51,7 @@ textarea {
 }
 
 .sideCol {
-  background-color: blueviolet;
+  background-color: rgb(194, 169, 218);
 }
 
 @media screen and (max-width: 768px) {
@@ -91,5 +91,8 @@ textarea {
 
 .side-link {
   display: block;
-  text-align: center;
+  padding-left: 20%;
+  font-weight: bold;
+  color: white;
+  margin-top: 25px;
 }
