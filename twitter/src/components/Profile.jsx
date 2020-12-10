@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import FollowButton from "./partials/FollowButton";
 import LikeButton from "./partials/LikeButton";
 import Navigation from "./partials/Navigation";
-import Sidebar from "./partials/Sidebar";
 import { profileVisited } from "../redux/actions/user";
-import { showTweets, addTweet } from "../redux/actions/actionsTweet";
+import { addTweet } from "../redux/actions/actionsTweet";
 
 function Profile() {
   const user = useSelector((state) => state.user);
   const userVisited = useSelector((state) => state.user.visited);
   const { username } = useParams();
   const [text, setText] = useState();
-  const history = useHistory();
   const dispatch = useDispatch();
 
   function handleTweetPost() {
