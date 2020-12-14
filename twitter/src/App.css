@@ -57,6 +57,7 @@ textarea {
 
 .profile-name {
   font-weight: bolder;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 @media screen and (max-width: 768px) {

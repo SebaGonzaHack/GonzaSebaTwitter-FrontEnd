@@ -77,18 +77,18 @@ function Profile() {
               </div>
 
               <div class="col-md-10">
-                <h3>
+                <h2>
                   {userVisited && (
                     <span className="profile-name">
                       {userVisited.firstName} {userVisited.lastName}
                     </span>
                   )}
-                </h3>
+                </h2>
                 <p>{userVisited && userVisited.bio}</p>
               </div>
               <hr />
 
-              <FollowButton username={username} userVisited={userVisited} />
+              <FollowButton user={user} userVisited={userVisited} />
 
               <span className="pr-3">
                 <strong className="pr-1">
