@@ -79,7 +79,7 @@ function Profile() {
               <div class="col-md-10">
                 <h3>
                   {userVisited && (
-                    <span>
+                    <span className="profile-name">
                       {userVisited.firstName} {userVisited.lastName}
                     </span>
                   )}
@@ -90,11 +90,17 @@ function Profile() {
 
               <FollowButton username={username} userVisited={userVisited} />
 
-              <span>
-                Seguidores: {userVisited && userVisited.userFollowers.length} |{" "}
+              <span className="pr-3">
+                <strong className="pr-1">
+                  {userVisited && userVisited.userFollowers.length}
+                </strong>
+                Seguidores
               </span>
               <span>
-                Siguiendo: {userVisited && userVisited.userFollowing.length}
+                <strong className="pr-1">
+                  {userVisited && userVisited.userFollowing.length}
+                </strong>
+                Seguidos
               </span>
             </div>
             <div className="row mt-4">

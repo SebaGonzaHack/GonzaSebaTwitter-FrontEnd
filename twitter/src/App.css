@@ -52,6 +52,11 @@ textarea {
 
 .sideCol {
   background-color: rgb(194, 169, 218);
+  border: 1px solid rgb(61, 57, 57);
+}
+
+.profile-name {
+  font-weight: bolder;
 }
 
 @media screen and (max-width: 768px) {

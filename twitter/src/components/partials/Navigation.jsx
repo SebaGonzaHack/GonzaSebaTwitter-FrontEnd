@@ -14,31 +14,35 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Link class="nav-link" to="/">
+            <Link className="nav-link" to="/">
               Home
             </Link>
-            <Link class="nav-link" to={`/users/${user.userName}`}>
+            <Link className="nav-link" to={`/users/${user.userName}`}>
               Perfil
             </Link>
-            <Link to={"/edit"}>Editar Usuario</Link>
+            <Link className="nav-link" to={"/edit"}>
+              Editar Usuario
+            </Link>
           </Nav>
         </Navbar.Collapse>
         <Nav>
           {user.token ? (
             <>
-              <div class="my-2 my-lg-0 text-light">Hola @{user.userName}</div>
+              <div className="my-2 my-lg-0 text-light">
+                Hola @{user.userName}
+              </div>
               <a
                 href="/login"
-                class="btn btn-warning ml-3"
+                className="btn btn-warning ml-3"
                 onClick={() => {
                   persistor.purge();
                 }}
               >
                 Logout
-              </a>{" "}
+              </a>
             </>
           ) : (
-            <a class="btn btn-warning" href="/login">
+            <a className="btn btn-warning" href="/login">
               Login
             </a>
           )}
