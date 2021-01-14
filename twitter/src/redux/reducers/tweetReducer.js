@@ -28,7 +28,8 @@ export default function tweetReducer(state = [], action) {
       });
 
     case "ADD_TWEET":
-      return [...state, action.payload];
+      const newTweet = { ...action.payload.tweet, user: action.payload.user };
+      return [...state, newTweet];
 
     default:
       return state;
