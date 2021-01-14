@@ -1,9 +1,11 @@
 import React from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addLike, removeLike } from "../../redux/actions/actionsTweet";
 
-const LikeButton = ({ twit, userLiking }) => {
+const LikeButton = ({ tweet, userLiking }) => {
   const state = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   function handleLike() {
     axios
@@ -11,29 +13,35 @@ const LikeButton = ({ twit, userLiking }) => {
         `http://localhost:8000/tweet/like`,
         {
           userLiking: userLiking,
-          twit: twit,
+          tweet: tweet,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${state.token}`,
+            Authorization: `Bearer ${state.user.token}`,
           },
         }
       )
-      .then((res) => {});
+      .then((res) => {
+        if (res.data === "removed") {
+          dispatch(removeLike(userLiking._id, tweet._id));
+        } else {
+          dispatch(addLike(userLiking._id, tweet._id));
+        }
+      });
   }
 
   return (
     <>
-      {twit.likes.length == 0 || !twit.likes.includes(state.user.user._id) ? (
+      {tweet.likes.length == 0 || !tweet.likes.includes(state.user._id) ? (
         <span>
           <i class="far fa-heart mr-1" onClick={handleLike}></i>
-          {twit.likes.length}
+          {tweet.likes.length}
         </span>
       ) : (
         <span>
           <i class="fas fa-heart mr-1" onClick={handleLike}></i>
-          {twit.likes.length}
+          {tweet.likes.length}
         </span>
       )}
     </>

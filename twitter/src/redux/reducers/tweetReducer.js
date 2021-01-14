@@ -3,24 +3,26 @@ export default function tweetReducer(state = [], action) {
     case "SHOW_TWEETS":
       return action.payload;
 
-    case "LIKE_TWEET":
+    case "ADD_LIKE":
       return state.map((tweet) => {
-        if (tweet.id === action.payload.tweetId) {
+        if (tweet._id === action.payload.tweetId) {
           return { ...tweet, likes: [...tweet.likes, action.payload.userId] };
         } else {
           return tweet;
         }
       });
-    case "UNLIKE_TWEET":
+    case "REMOVE_LIKE":
       return state.map((tweet) => {
-        if (tweet.id === action.payload.tweetId) {
+        if (tweet._id === action.payload.tweetId) {
+          console.log("existe");
           return {
             ...tweet,
             likes: tweet.likes.filter(
-              (user) => user.id !== action.payload.userId
+              (user) => user._id === action.payload.userId
             ),
           };
         } else {
+          console.log("no");
           return tweet;
         }
       });

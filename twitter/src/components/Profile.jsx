@@ -7,6 +7,7 @@ import LikeButton from "./partials/LikeButton";
 import Navigation from "./partials/Navigation";
 import Sidebar from "./partials/Sidebar";
 import { profileVisited } from "../redux/actions/user";
+import Tweet from "./partials/Tweet";
 
 function Profile() {
   const user = useSelector((state) => state.user);
@@ -48,7 +49,7 @@ function Profile() {
       })
       .then((res) => {
         setUserVisited(res.data);
-        dispatch();
+
         dispatch(profileVisited(res.data));
       });
   }, []);
@@ -62,10 +63,7 @@ function Profile() {
           <div className="col-8">
             <div class="row mt-5">
               <div class="col-md-2">
-                <img
-                  class="rounded-circle profileAvatar"
-                  src="user.userPhoto"
-                />
+                <img class="rounded-circle profileAvatar" src={user.visited} />
               </div>
 
               <div class="col-md-10">
@@ -83,7 +81,8 @@ function Profile() {
               <FollowButton username={username} userVisited={userVisited} />
 
               <span>
-                Seguidores: {userVisited && userVisited.userFollowers.length} |{" "}
+                Seguidores: {user.visited && user.visited.userFollowers.length}{" "}
+                |{" "}
               </span>
               <span>
                 Siguiendo: {userVisited && userVisited.userFollowing.length}
@@ -124,37 +123,10 @@ function Profile() {
             </div>
             <div className="row mt-4">
               <div className="col">
-                {userVisited &&
-                  user.tweets &&
-                  user.tweets
+                {user.visited &&
+                  user.visited.userTweets
                     .map((twit) => {
-                      return (
-                        <div class="row tweet-container">
-                          <div class="col-md-2">
-                            <Link to={`/users/${userVisited.userName}`}>
-                              <img
-                                class="rounded-circle tweetAvatar"
-                                src="{twit.user.userPhoto}"
-                              />
-                            </Link>
-                          </div>
-
-                          <div class="col-md-10">
-                            <strong>
-                              {userVisited.firstName} {userVisited.lastName}
-                            </strong>
-                            <Link to={`/users/${userVisited.userName}`}>
-                              <span> @{userVisited.userName} </span>
-                            </Link>
-
-                            <p>{twit.text}</p>
-                          </div>
-                          <hr />
-                          <span>{twit.createdAt} | </span>
-
-                          <LikeButton twit={twit} userLiking={user.user} />
-                        </div>
-                      );
+                      return <Tweet tweet={twit} />;
                     })
                     .reverse()}
               </div>

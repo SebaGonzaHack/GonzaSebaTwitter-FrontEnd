@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Navigation from "./partials/Navigation";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import LikeButton from "./partials/LikeButton";
+import Tweet from "./partials/Tweet";
 import { showTweets, addTweet } from "../redux/actions/actionsTweet";
 
 function Home() {
@@ -59,32 +59,7 @@ function Home() {
             {tweets &&
               tweets
                 .map((tweet) => {
-                  return (
-                    <div class="tweet-container">
-                      <div class="row">
-                        <div class="col-md-2">
-                          <Link to={`/users/${tweet.user.userName}`}>
-                            <img class="rounded-circle tweetAvatar" src="" />
-                          </Link>
-                        </div>
-
-                        <div class="col-md-10">
-                          <strong>
-                            {tweet.user.firstName} {tweet.user.lastName}
-                          </strong>
-                          <Link to={`/users/${tweet.user.userName}`}>
-                            <span> @{tweet.user.userName} </span>
-                          </Link>
-
-                          <p>{tweet.text}</p>
-                        </div>
-                      </div>
-
-                      <hr />
-                      <span>{tweet.createdAt} | </span>
-                      {/* <LikeButton tweet={tweet} userLiking={user} /> */}
-                    </div>
-                  );
+                  return <Tweet tweet={tweet} />;
                 })
                 .reverse()}
           </div>

@@ -12,4 +12,18 @@ const saveToken = (token, user) => {
   };
 };
 
-export { profileVisited, saveToken };
+function followUser(user) {
+  return {
+    type: "FOLLOW_USER",
+    payload: user,
+  };
+}
+
+function unfollowUser(user) {
+  return {
+    type: "UNFOLLOW_USER",
+    payload: user,
+  };
+}
+
+export { profileVisited, saveToken, followUser, unfollowUser };
