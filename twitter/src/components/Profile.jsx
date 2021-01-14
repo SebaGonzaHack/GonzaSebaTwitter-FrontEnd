@@ -86,7 +86,7 @@ function Profile() {
               </div>
               <hr />
 
-              <FollowButton user={user} userVisited={userVisited} />
+              <FollowButton username={username} userVisited={userVisited} />
 
               <span>
                 Seguidores: {user.visited && user.visited.userFollowers.length}{" "}
@@ -136,8 +136,8 @@ function Profile() {
               <div className="col">
                 {user.visited &&
                   user.visited.userTweets
-                    .map((twit) => {
-                      return <Tweet tweet={twit} />;
+                    .map((tweet) => {
+                      return <Tweet tweet={tweet} />;
                     })
                     .reverse()}
               </div>
