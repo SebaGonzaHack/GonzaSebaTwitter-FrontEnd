@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import FollowButton from "./partials/FollowButton";
-import LikeButton from "./partials/LikeButton";
 import Navigation from "./partials/Navigation";
 import { profileVisited } from "../redux/actions/user";
 import Tweet from "./partials/Tweet";
@@ -87,7 +86,7 @@ function Profile() {
               </div>
               <hr />
 
-              {userVisited._id !== user._id && (
+              {user.visited && userVisited._id !== user._id && (
                 <FollowButton username={username} userVisited={userVisited} />
               )}
 
@@ -140,7 +139,7 @@ function Profile() {
                 {tweets &&
                   tweets
                     .map((tweet) => {
-                      if (user.visited._id === tweet.user._id) {
+                      if (user.visited && user.visited._id === tweet.user._id) {
                         {
                           return <Tweet tweet={tweet} />;
                         }

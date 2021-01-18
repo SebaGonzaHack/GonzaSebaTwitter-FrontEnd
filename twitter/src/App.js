@@ -3,6 +3,7 @@ import Profile from "./components/Profile";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Edit from "./components/Edit";
 import { Switch, BrowserRouter as Router } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
@@ -14,6 +15,8 @@ function App() {
         <Switch>
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute path="/users/:username" component={Profile} />
+          <PrivateRoute path="/edit" component={Edit} />
+
           <PublicRoute restricted={true} path="/login" component={Login} />
           <PublicRoute
             restricted={true}

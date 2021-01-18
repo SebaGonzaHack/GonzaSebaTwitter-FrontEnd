@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import LikeButton from "./LikeButton";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const Tweet = ({ tweet }) => {
   const state = useSelector((state) => state);
@@ -31,7 +32,9 @@ const Tweet = ({ tweet }) => {
       </div>
 
       <hr />
-      <span>{tweet.createdAt} | </span>
+      <span>
+        {moment(tweet.createdAt).format("MMMM Do YYYY, h:mm:ss a")} |{" "}
+      </span>
       <LikeButton tweet={tweet} userLiking={state.user} />
     </div>
   );
