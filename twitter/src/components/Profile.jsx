@@ -11,6 +11,7 @@ import { addTweet } from "../redux/actions/actionsTweet";
 
 function Profile() {
   const user = useSelector((state) => state.user);
+  const tweets = useSelector((state) => state.tweets);
   const userVisited = useSelector((state) => state.user.visited);
   const { username } = useParams();
   const [text, setText] = useState();
@@ -86,7 +87,9 @@ function Profile() {
               </div>
               <hr />
 
-              <FollowButton username={username} userVisited={userVisited} />
+              {userVisited._id !== user._id && (
+                <FollowButton username={username} userVisited={userVisited} />
+              )}
 
               <span>
                 Seguidores: {user.visited && user.visited.userFollowers.length}{" "}
@@ -134,10 +137,14 @@ function Profile() {
             </div>
             <div className="row mt-4">
               <div className="col">
-                {user.visited &&
-                  user.visited.userTweets
+                {tweets &&
+                  tweets
                     .map((tweet) => {
-                      return <Tweet tweet={tweet} />;
+                      if (user.visited._id === tweet.user._id) {
+                        {
+                          return <Tweet tweet={tweet} />;
+                        }
+                      }
                     })
                     .reverse()}
               </div>
