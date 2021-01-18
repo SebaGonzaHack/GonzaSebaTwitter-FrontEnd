@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const EditForm = () => {
+  const state = useSelector((state) => state);
+  const user = useSelector((state) => state.user);
+
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [userphoto, setUserphoto] = useState("");
   const [bio, setBio] = useState("");
 
   const dispatch = useDispatch();
@@ -16,14 +18,22 @@ const EditForm = () => {
 
   function handleEdit(newUser) {
     axios
-      .post("http://localhost:8000/editUser", {
-        firstname: newUser.firstname,
-        lastname: newUser.lastname,
-        email: newUser.email,
-        username: newUser.username,
-        userphoto: newUser.userphoto,
-        bio: newUser.bio,
-      })
+      .post(
+        "http://localhost:8000/editUser",
+        {
+          firstnameEdit: newUser.firstname,
+          lastnameEdit: newUser.lastname,
+          emailEdit: newUser.email,
+          usernameEdit: newUser.username,
+          bio: newUser.bio,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${state.user.token}`,
+          },
+        }
+      )
       .then((response) => {})
       .catch((error) => {
         console.log(error);
@@ -35,13 +45,20 @@ const EditForm = () => {
       <div class="jumbotron mt-4">
         <h3>Ingresa tus nuevos datos para actualizar</h3>
 
-        <form enctype="multipart/form-data" action="/register" method="POST">
+        <form
+          enctype="multipart/form-data"
+          action="/editUser"
+          method="POST"
+          noValidate
+          autoComplete="off"
+        >
           <div class="form-group mb-3">
             <label for="firstname">Nombre</label>
             <input
               type="text"
               id="firstname"
               name="firstname"
+              value={user.firstName}
               class="form-control"
               placeholder="Introducir Nombre..."
               onChange={(e) => setFirstname(e.target.value)}
@@ -53,6 +70,7 @@ const EditForm = () => {
             <input
               type="text"
               id="lastname"
+              value={user.lastName}
               name="lastname"
               class="form-control"
               placeholder="Introducir Apellido..."
@@ -65,6 +83,7 @@ const EditForm = () => {
             <input
               type="email"
               class="form-control"
+              value={user.email}
               name="email"
               id="email"
               placeholder="Ejemplo: tucasilla@correo.com"
@@ -77,22 +96,11 @@ const EditForm = () => {
             <input
               type="text"
               id="username"
+              value={user.userName}
               name="username"
               class="form-control"
               placeholder="Introducir tu nombre de usuario..."
               onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="userphoto">Foto de Usuario</label>
-            <input
-              type="file"
-              id="userphoto"
-              name="userphoto"
-              class="form-control"
-              placeholder="Inserte Apellido..."
-              onChange={(e) => setUserphoto(e.target.value)}
             />
           </div>
 
@@ -104,6 +112,7 @@ const EditForm = () => {
             <textarea
               type="text"
               id="bio"
+              value={user.bio}
               name="bio"
               class="form-control d-block"
               placeholder="Sobre Mí..."
@@ -123,7 +132,6 @@ const EditForm = () => {
                 lastname,
                 email,
                 username,
-                userphoto,
                 bio,
               });
             }}
