@@ -17,9 +17,7 @@ export default function tweetReducer(state = [], action) {
           console.log("existe");
           return {
             ...tweet,
-            likes: tweet.likes.filter(
-              (user) => user._id === action.payload.userId
-            ),
+            likes: tweet.likes.filter((user) => user !== action.payload.userId),
           };
         } else {
           console.log("no");

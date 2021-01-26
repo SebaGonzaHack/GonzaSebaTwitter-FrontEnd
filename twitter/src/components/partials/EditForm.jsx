@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,14 @@ const EditForm = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    setFirstname(user.firstName);
+    setLastname(user.lastName);
+    setEmail(user.email);
+    setUsername(user.userName);
+    setBio(user.bio);
+  }, []);
 
   function handleEdit(newUser) {
     axios
@@ -41,25 +49,19 @@ const EditForm = () => {
   }
 
   return (
-    <div class="container mt-4">
-      <div class="jumbotron mt-4">
+    <div className="container mt-4">
+      <div className="jumbotron mt-4">
         <h3>Ingresa tus nuevos datos para actualizar</h3>
 
-        <form
-          enctype="multipart/form-data"
-          action="/editUser"
-          method="POST"
-          noValidate
-          autoComplete="off"
-        >
+        <form noValidate autoComplete="off">
           <div class="form-group mb-3">
             <label for="firstname">Nombre</label>
             <input
               type="text"
               id="firstname"
               name="firstname"
-              value={user.firstName}
-              class="form-control"
+              value={firstname}
+              className="form-control"
               placeholder="Introducir Nombre..."
               onChange={(e) => setFirstname(e.target.value)}
             />
@@ -70,9 +72,9 @@ const EditForm = () => {
             <input
               type="text"
               id="lastname"
-              value={user.lastName}
+              value={lastname}
               name="lastname"
-              class="form-control"
+              className="form-control"
               placeholder="Introducir Apellido..."
               onChange={(e) => setLastname(e.target.value)}
             />
@@ -82,8 +84,8 @@ const EditForm = () => {
             <label for="email">Correo electrónico</label>
             <input
               type="email"
-              class="form-control"
-              value={user.email}
+              className="form-control"
+              value={email}
               name="email"
               id="email"
               placeholder="Ejemplo: tucasilla@correo.com"
@@ -96,9 +98,9 @@ const EditForm = () => {
             <input
               type="text"
               id="username"
-              value={user.userName}
+              value={username}
               name="username"
-              class="form-control"
+              className="form-control"
               placeholder="Introducir tu nombre de usuario..."
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -112,9 +114,9 @@ const EditForm = () => {
             <textarea
               type="text"
               id="bio"
-              value={user.bio}
+              value={bio}
               name="bio"
-              class="form-control d-block"
+              className="form-control d-block"
               placeholder="Sobre Mí..."
               cols="30"
               rows="10"
@@ -125,7 +127,7 @@ const EditForm = () => {
           <a
             href="/login"
             type="button"
-            class="btn btn-primary"
+            className="btn btn-primary"
             onClick={() => {
               handleEdit({
                 firstname,
