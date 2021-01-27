@@ -3,11 +3,13 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { saveToken } from "../redux/actions/user";
+import Alert from "react-bootstrap/Alert";
 require("dotenv").config();
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [invalid, setInvalid] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -21,7 +23,9 @@ const Login = () => {
         dispatch(saveToken(res.data.token, res.data.user));
         history.push("/");
       })
-      .catch((error) => {});
+      .catch((error) => {
+        setInvalid(true);
+      });
   }
 
   return (
@@ -67,6 +71,7 @@ const Login = () => {
           </Link>
         </form>
       </div>
+      {invalid && <Alert variant={"warning"}>Error: Datos Incorrectos</Alert>}
     </div>
   );
 };
