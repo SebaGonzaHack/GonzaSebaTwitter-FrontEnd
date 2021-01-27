@@ -19,7 +19,7 @@ function Profile() {
   function handleTweetPost() {
     axios
       .post(
-        `http://localhost:8000/tweets`,
+        `${process.env.REACT_APP_URL}/tweets`,
         {
           twitContent: text,
           username: user.username,
@@ -38,7 +38,7 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/users/${username}`, {
+      .get(`${process.env.REACT_APP_URL}/users/${username}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,

@@ -10,7 +10,7 @@ const FollowButton = ({ userVisited, username, user }) => {
   function handleFollow() {
     axios
       .post(
-        `http://localhost:8000/users/follow/${username}`,
+        `${process.env.REACT_APP_URL}/users/follow/${username}`,
         {
           username: state.userName,
           userToFollow: username,
@@ -29,7 +29,7 @@ const FollowButton = ({ userVisited, username, user }) => {
   function handleUnfollow() {
     axios
       .post(
-        `http://localhost:8000/users/unfollow/${username}`,
+        `${process.env.REACT_APP_URL}/users/unfollow/${username}`,
         {
           username: state.userName,
           userToUnfollow: username,

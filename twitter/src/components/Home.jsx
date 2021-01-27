@@ -16,7 +16,7 @@ function Home() {
   function handleTweetPost(text, user) {
     axios
       .post(
-        `http://localhost:8000/tweets`,
+        `${process.env.REACT_APP_URL}/tweets`,
         {
           text: text,
           user: user._id,
@@ -37,7 +37,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/tweets`, {
+      .get(`${process.env.REACT_APP_URL}/tweets`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,

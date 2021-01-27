@@ -10,7 +10,7 @@ const LikeButton = ({ tweet, userLiking }) => {
   function handleLike() {
     axios
       .post(
-        `http://localhost:8000/tweet/like`,
+        `${process.env.REACT_APP_URL}/tweet/like`,
         {
           userLiking: userLiking,
           tweet: tweet,

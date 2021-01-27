@@ -27,7 +27,7 @@ const EditForm = () => {
   function handleEdit(newUser) {
     axios
       .post(
-        "http://localhost:8000/editUser",
+        `${process.env.REACT_APP_URL}/editUser`,
         {
           firstnameEdit: newUser.firstname,
           lastnameEdit: newUser.lastname,

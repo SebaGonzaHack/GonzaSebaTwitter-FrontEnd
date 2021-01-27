@@ -17,7 +17,7 @@ const RegisterForm = () => {
 
   function handleRegister(newUser) {
     axios
-      .post("http://localhost:8000/register", {
+      .post(`${process.env.REACT_APP_URL}/register`, {
         firstname: newUser.firstname,
         lastname: newUser.lastname,
         email: newUser.email,

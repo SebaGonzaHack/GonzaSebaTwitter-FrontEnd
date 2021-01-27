@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { saveToken } from "../redux/actions/user";
+require("dotenv").config();
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -12,7 +13,7 @@ const Login = () => {
 
   function handleLogin(username, password) {
     axios
-      .post("http://localhost:8000/login", {
+      .post(`${process.env.REACT_APP_URL}/login`, {
         username: username,
         password: password,
       })
